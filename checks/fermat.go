@@ -6,6 +6,7 @@ import (
 
 // Prime test based on Fermat's little theorem
 // 2^(n-1) % n == 1
+// Bear in mind that this is a probabilistic algorithm
 // https://en.wikipedia.org/wiki/Fermat%27s_little_theorem
 func Fermat(n *big.Int) bool {
 	one := big.NewInt(1)
