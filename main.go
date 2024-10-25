@@ -3,7 +3,6 @@ package main
 import (
 	"crypto/rand"
 	"fmt"
-	// "math"
 	"math/big"
 	"primetests/checks"
 )
@@ -19,9 +18,10 @@ func generateRandomBigInt(digits int64) *big.Int {
 }
 
 func main() {
-	for i := int64(2); i < 86; i++ {
-		if checks.Fermat(big.NewInt(i)) {
-			fmt.Printf("%d is a prime number\n", i)
+	for i := int64(2); i < 1000; i++ {
+		n := big.NewInt(i)
+		if checks.Fermat(n) != checks.Naive(n) {
+			fmt.Printf("Naive and Fermat checks have different outputs for %d\n", i)
 		}
 	}
 }
