@@ -1,25 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"crypto/rand"
+	"fmt"
+	// "math"
 	"math/big"
-	"math"
+	"primetests/checks"
 )
 
-func generateRandomBigInt(digits int64) big.Int {
+func generateRandomBigInt(digits int64) *big.Int {
 	num, err := rand.Int(rand.Reader, new(big.Int).Exp(big.NewInt(10), big.NewInt(digits), nil))
 
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Printf("Random number with up to %d digits:\n%s\n", digits, num.String())
-	return *num
+	return num
 }
 
 func main() {
-	for i:=0;i<5;i++ {
-		generateRandomBigInt(int64(math.Pow(float64(10), float64(i))))
+	for i := int64(2); i < 86; i++ {
+		if checks.Fermat(big.NewInt(i)) {
+			fmt.Printf("%d is a prime number\n", i)
+		}
 	}
 }
