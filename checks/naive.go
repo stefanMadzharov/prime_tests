@@ -5,11 +5,14 @@ import (
 )
 
 func Naive(n *big.Int) bool {
+	zero := big.NewInt(0)
 	one := big.NewInt(1)
 	two := big.NewInt(2)
 
-	// check if even
-	if new(big.Int).Mod(n, two).Cmp(one) == -1 {
+	if n.Cmp(two) == 0 {
+		return true
+	}
+	if n.Cmp(two) == -1 || new(big.Int).Rem(n, two).Cmp(zero) == 0 {
 		return false
 	}
 	// check every odd number up to sqrt of if n%i == 0
