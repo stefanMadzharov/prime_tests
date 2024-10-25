@@ -4,6 +4,7 @@ import (
 	"math/big"
 )
 
+// check for n % d == 0 for every odd number from 3 to roundDown(sqrt(n))
 func Naive(n *big.Int) bool {
 	zero := big.NewInt(0)
 	one := big.NewInt(1)
@@ -15,7 +16,7 @@ func Naive(n *big.Int) bool {
 	if n.Cmp(two) == -1 || new(big.Int).Rem(n, two).Cmp(zero) == 0 {
 		return false
 	}
-	// check every odd number up to sqrt of if n%i == 0
+
 	sqrtN := new(big.Int).Sqrt(n)
 	for i := big.NewInt(3); i.Cmp(sqrtN) < 1; i.Add(i, two) {
 		if new(big.Int).Mod(n, i).Cmp(one) == -1 {

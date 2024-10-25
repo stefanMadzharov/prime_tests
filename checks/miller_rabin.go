@@ -1,12 +1,13 @@
 package checks
 
 import (
-	"crypto/rand"
 	"math/big"
+	"primetests/rand"
 )
 
 // n is the primality tested number
 // b is the number of bases the number is going to try
+// https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
 func MillerRabin(n *big.Int, b int) bool {
 	zero := big.NewInt(0)
 	one := big.NewInt(1)
@@ -19,7 +20,7 @@ func MillerRabin(n *big.Int, b int) bool {
 	}
 
 	for i := 0; i < b; i++ {
-		a := generateRandomBase(new(big.Int).Sub(n, one))
+		a := rand.Base(new(big.Int).Sub(n, one))
 		if !checkBase(n, a) {
 			return false
 		}
@@ -59,17 +60,4 @@ func checkCondition2(n *big.Int, remainders []*big.Int) bool {
 		}
 	}
 	return true
-}
-
-func generateRandomBase(max *big.Int) *big.Int {
-	two := big.NewInt(2)
-	if max.Cmp(two) == 0 {
-		return two
-	}
-	num, err := rand.Int(rand.Reader, new(big.Int).Sub(max, two))
-
-	if err != nil {
-		panic(err)
-	}
-	return num.Add(num, two)
 }
